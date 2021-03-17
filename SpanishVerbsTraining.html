@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="SpanishVerbsTraining.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="top">
+    <div class="image">
+        <img src="https://blazon.ru/wp-content/uploads/2019/05/341.png"  alt="">
+    </div>
+    <div class="select">
+        <select name="" id="select">
+            <option selected value="1">Presente de indicativo</option>
+            <option value="2">Preterito Simple</option>
+            <option value="3">Futuro imperfecto</option>
+        </select>
+    </div>
+</div>
+    <div class="chosenVerb">
+        <h1>Случайно выпавший глагол</h1>
+    </div>
+    <div class="main">
+        <!-- <div class="first">
+            <p>yo</p>
+            <input class="input1" type="text">
+            <p class="p1"></p>
+        </div>
+        <div class="second">
+            <p>tu</p>
+            <input class="input2" type="text">
+            <p class="p2"></p>
+        </div>
+        <div class="third">
+            <p>el</p>
+            <input class="input3" type="text">
+            <p class="p3"></p>
+        </div>
+        <div class="fourth">
+            <p>nosotros</p>
+            <input class="input4" type="text">
+            <p class="p4"></p>
+        </div>
+        <div class="fifth">
+            <p>vosotros</p>
+            <input class="input5" type="text">
+            <p class="p5"></p>
+        </div>
+        <div class="sixth">
+            <p>ustedes</p>
+            <input class="input6" type="text">
+            <p class="p6"></p>
+        </div> -->
+        
+        <p class="textDefault">yo</p>
+            <input class="input1" type="text">
+            <p class="p1"></p>
+            <p class="textDefault">tú</p>
+            <input class="input2" type="text">
+            <p class="p2"></p>
+            <p class="textDefault">él/ella</p>
+            <input class="input3" type="text">
+            <p class="p3"></p>
+            <p class="textDefault">nosotros/as</p>
+            <input class="input4" type="text">
+            <p class="p4"></p>
+            <p class="textDefault">vosotros/as</p>
+            <input class="input5" type="text">
+            <p class="p5"></p>
+            <p class="textDefault">ellos/ellas</p>
+            <input class="input6" type="text">
+            <p class="p6"></p>
+
+    </div>
+    <div class="buttons">
+        <div class="button1">
+            <button>Start</button>
+        </div>
+        <div class="button2">
+            <button>Check</button>
+        </div>
+        <div class="button3">
+            <button>Next</button>
+        </div>
+    </div>
+    
+    <script>
+        let verbs=['ser', 'estar', 'ir','tener', 'dar', 'hacer', 'ver','saber', 'decir', 'querer', 'salir', 'venir', 'traer', 'poder', 
+    'poner','andar', 'caer', 'oir','despertar','empezar','descender','encender','calentar','sentar','atender','pensar','entender',
+     'defender','recomendar','perder','negar','atravesar','rogar','acostar','soñar','encontrar','mover','probar','recordar','volver',
+    'mostrar','demostrar','almorzar','morder','costar','aprobar','vestir','servir','seguir','elegir','pedir','sentir','preferir',
+    'mentir','advertir','dormir','morir','conocer','pertenecer','parecer','ofrecer','traducir','producir','construir','destruir'];
+        let verbs_Answers;
+        let Presente_de_indicativo={
+            'ser':['soy','eres','es','somos', 'sois', 'son'],
+            'estar':['estoy', 'estas', 'esta', 'estamos', 'estais', 'estan'],
+            'ir':['voy', 'vas', 'va', 'vamos', 'vais', 'van'],
+            'tener':['tengo','tienes','tiene','tenemos','teneis','tienen'],
+            'dar':['doy','das','da','damos','dais','dan'],
+            'hacer':['hago','haces','hace','hacemos','haceis','hacen'],
+            'ver':['veo','ves','ve','vemos','veis','ven'],
+            'saber':['se','sabes','sabe','sabemos','sabeis','saben'],
+            'decir':['digo','dices','dice','decimos','decis','dicen'],
+            'querer':['quiero','quieres','quiere','queremos','quereis','quieren'],
+            'salir':['salgo','sales','sale','salimos','salis','salen'],
+            'venir':['vengo','vienes','viene','venimos','venis','vienen'],
+            'traer':['traigo','traes','trae','traemos','traeis','traen'],
+            'poder':['puedo','puedes','puede','podemos','podeis','pueden'],
+            'poner':['pongo','pones','pone','ponemos','poneis','ponen'],
+            'andar':['ando','andas','anda','andamos','andais','andan'],
+            'caer':['caigo','caes','cae','caemos','caeis','caen'],
+            'oir':['oigo','oyes','oye','oimos','ois','oyen'],
+            'despertar':['despierto','despiertas','despierta','despertamos','despertais','despiertan'],
+            'empezar':['empiezo','empiezas','empieza','empezamos','empezais','empiezan'],
+            'descender':['desciendo','desciendes','desciende','descendemos','descendeis','descienden'],
+            'encender':['enciendo','enciendes','enciende','encendemos','encendeis','encienden'],
+            'calentar':['caliento','calientas','calienta','calentamos','calentais','calientan'],
+            'sentar':['siento','sientas','sienta','sentamos','sentais','sientan'],
+            'atender':['atiendo','atiendes','atiende','atendemos','atendeis','atienden'],
+            'pensar':['pienso','piensas','piensa','pensamos','pensais','piensan'],
+            'entender':['entiendo','entiendes','entiende','entendemos','entendeis','entienden'],
+            'defender':['defiendo','defiendes','defiende','defendemos','defendeis','defienden'],
+            'recomendar':['recomiendo','recomiendas','recomienda','recomendamos','recomendais','recomiendan'],
+            'perder':['pierdo','pierdes','pierde','perdemos','perdeis','pierden'],
+            'negar':['niego','niegas','niega','negamos','negais','niegan'],
+            'atravesar':['atravieso','atraviesas','atraviesa','atravesamos','atravesais','atraviesan'],
+            'rogar':['ruego','ruegas','ruega','rogamos','rogais','ruegan'],
+            'acostar':['','','','','',''],
+            'soñar':['sueno','suenas','suena','sonamos','sonais','suenan'],
+            'encontrar':['encuentro','encuentras','encuentra','encontramos','encontrais','encuentran'],
+            'mover':['muevo','mueves','mueve','movemos','moveis','mueven'],
+            'probar':['pruebo','pruebas','prueba','probamos','probais','prueban'],
+            'recordar':['recuerdo','recuerdas','recuerda','recordamos','recordais','recuerdan'],
+            'volver':['vuelvo','vuelves','vuelve','volvemos','volveis','vuelven'],
+            'mostrar':['muestro','muestras','muestra','mostramos','mostrais','muestran'],
+            'demostrar':['demuestro','demuestras','demuestra','demostramos','demostrais','demuestran'],
+            'almorzar':['almuerzo','almuerzas','almuerza','almorzamos','almorzais','almuerzan'],
+            'morder':['muerdo','muerdes','muerde','mordemos','mordeis','muerden'],
+            'costar':['cuesto','cuestas','cuesta','costamos','costais','cuestan'],
+            'aprobar':['apruebo','apruebas','aprueba','aprobamos','aprobais','aprueban'],
+            'vestir':['visto','vistes','viste','vestimos','vestis','visten'],
+            'servir':['sirvo','sirves','sirve','servimos','servis','sirven'],
+            'seguir':['sigo','sigues','sigue','seguimos','seguis','siguen'],
+            'elegir':['elijo','eliges','elige','elegimos','elegis','eligen'],
+            'pedir':['pido','pides','pide','pedimos','pedis','piden'],
+            'sentir':['siento','sientes','siente','sentimos','sentis','sienten'],
+            'preferir':['prefiero','prefieres','prefiere','preferimos','preferis','prefieren'],
+            'mentir':['miento','mientes','miente','mentimos','mentis','mienten'],
+            'advertir':['advierto','adviertes','advierte','advertimos','advertis','advierten'],
+            'dormir':['duermo','duermes','duerme','dormimos','dormis','duermen'],
+            'morir':['muero','mueres','muere','morimos','moris','mueren'],
+            'conocer':['conozco','conoces','conoce','conocemos','conoceis','conocen'],
+            'pertenecer':['pertenezco','perteneces','pertenece','pertenecemos','perteneceis','pertenecen'],
+            'parecer':['parezco','pareces','parece','parecemos','pareceis','parecen'],
+            'ofrecer':['ofrezco','ofreces','ofrece','ofrecemos','ofreceis','ofrecen'],
+            'traducir':['traduzco','traduces','traduce','traducimos','traducis','traducen'],
+            'producir':['produzco','produces','produce','producimos','producis','producen'],
+            'construir':['construyo','construyes','construye','construimos','construis','construyen'],
+            'destruir':['destruyo','destruyes','destruye','destruimos','destruis','destruyen']
+        };
+        let Preterito_Simple={
+            'ser':['fui','fuiste','fue','fuimos', 'fuisteis', 'fueron'],
+            'estar':['estuve', 'estuviste', 'estuvo', 'estuvimos', 'estuvisteis', 'estuvieron'],
+            'ir':['fui', 'fuiste', 'fue', 'fuimos', 'fuisteis', 'fueron'],
+            'tener':['tuve','tuviste','tuvo','tuvimos','tuvisteis','tuvieron'],
+            'dar':['di','diste','dio','dimos','disteis','dieron'],
+            'hacer':['hice','hiciste','hizo','hicimos','hicisteis','hicieron'],
+            'ver':['vi','viste','vio','vimos','visteis','vieron'],
+            'saber':['supe','supiste','supo','supimos','supisteis','supieron'],
+            'decir':['dije','dijiste','dijo','dijimos','dijisteis','dijeron'],
+            'querer':['quise','quisiste','quiso','quisimos','quisisteis','quisieron'],
+            'salir':['sali','saliste','salio','salimos','salisteis','salieron'],
+            'venir':['vine','viniste','vino','vinimos','vinisteis','vinieron'],
+            'traer':['traje','trajiste','trajo','trajimos','trajisteis','trajeron'],
+            'poder':['pude','pudiste','pudo','pudimos','pudisteis','pudieron'],
+            'poner':['puse','pusiste','puso','pusimos','pusisteis','pusieron'],
+            'andar':['anduve','anduviste','anduvo','anduvimos','anduvisteis','anduvieron'],
+            'caer':['cai','caiste','cayo','caimos','caisteis','cayeron'],
+            'oir':['oi','oiste','oyo','oimos','oisteis','oyeron'],
+            'despertar':['desperte','despertaste','desperto','despertamos','despertasteis','despertaron'],
+            'empezar':['empece','empezaste','empezo','empezamos','empezasteis','empezaron'],
+            'descender':['descendi','descendiste','descendio','descendimos','descendisteis','descendieron'],
+            'encender':['encendi','encendiste','encendio','encendimos','encendisteis','encendieron'],
+            'calentar':['calente','calentaste','calento','calentamos','calentasteis','calentaron'],
+            'sentar':['sente','sentaste','sento','sentamos','sentasteis','sentaron'],
+            'atender':['atendi','atendiste','atendio','atendimos','atendisteis','atendieron'],
+            'pensar':['pense','pensaste','penso','pensamos','pensasteis','pensaron'],
+            'entender':['entendi','entendiste','entendio','entendimos','entendisteis','entendieron'],
+            'defender':['defendi','defendiste','defendio','defendimos','defendisteis','defendieron'],
+            'recomendar':['recomende','recomendaste','recomendo','recomendamos','recomendasteis','recomendaron'],
+            'perder':['perdi','perdiste','perdio','perdimos','perdisteis','perdieron'],
+            'negar':['negue','negaste','nego','negamos','negasteis','negaron'],
+            'atravesar':['atravese','atravesaste','atraveso','atravesamos','atravesasteis','atravesaron'],
+            'rogar':['rogue','rogaste','rogo','rogamos','rogasteis','rogaron'],
+            'acostar':['','','','','',''],
+            'soñar':['sone','sonaste','sono','sonamos','sonasteis','sonaron'],
+            'encontrar':['encontre','encontraste','encontro','encontramos','encontrasteis','encontraron'],
+            'mover':['movi','moviste','movio','movimos','movisteis','movieron'],
+            'probar':['probe','probaste','probo','probamos','probasteis','probaron'],
+            'recordar':['recorde','recordaste','recordo','recordamos','recordasteis','recordaron'],
+            'volver':['volvi','volviste','volvio','volvimos','volvisteis','volvieron'],
+            'mostrar':['mostre','mostraste','mostro','mostramos','mostrasteis','mostraron'],
+            'demostrar':['demostre','demostraste','demostro','demostramos','demostrasteis','demostraron'],
+            'almorzar':['almorce','almorzaste','almorzo','almorzamos','almorzasteis','almorzaron'],
+            'morder':['mordi','mordiste','mordio','mordimos','mordisteis','mordieron'],
+            'costar':['coste','costaste','costo','costamos','costasteis','costaron'],
+            'aprobar':['aprobe','aprobaste','aprobo','aprobamos','aprobasteis','aprobaron'],
+            'vestir':['vesti','vestiste','vistio','vestimos','vestisteis','vistieron'],
+            'servir':['servi','serviste','sirvio','servimos','servisteis','sirvieron'],
+            'seguir':['segui','seguiste','siguio','seguimos','seguisteis','siguieron'],
+            'elegir':['elegi','elegiste','eligio','elegimos','elegisteis','eligieron'],
+            'pedir':['pedi','pediste','pidio','pedimos','pedisteis','pidieron'],
+            'sentir':['senti','sentiste','sintio','sentimos','sentisteis','sintieron'],
+            'preferir':['preferi','preferiste','prefirio','preferimos','preferisteis','prefirieron'],
+            'mentir':['menti','mentiste','mintio','mentimos','mentisteis','mintieron'],
+            'advertir':['adverti','advertiste','advirtio','advertimos','advertisteis','advirtieron'],
+            'dormir':['dormi','dormiste','durmio','dormimos','dormisteis','durmieron'],
+            'morir':['mori','moriste','murio','morimos','moristeis','murieron'],
+            'conocer':['conoci','conociste','conocio','conocimos','conocisteis','conocieron'],
+            'pertenecer':['perteneci','perteneciste','pertenecio','pertenecimos','pertenecisteis','pertenecieron'],
+            'parecer':['pareci','pareciste','parecio','parecimos','parecisteis','parecieron'],
+            'ofrecer':['ofreci','ofreciste','ofrecio','ofrecimos','ofrecisteis','ofrecieron'],
+            'traducir':['traduje','tradujiste','tradujo','tradujimos','tradujisteis','tradujeron'],
+            'producir':['produje','produjiste','produjo','produjimos','produjisteis','produjeron'],
+            'construir':['construi','construiste','construyo','construimos','construisteis','construyeron'],
+            'destruir':['destrui','destruiste','destruyo','destruimos','destruisteis','destruyeron']
+        };
+        let Futuro_imperfecto={
+            'ser':['sere','seras','sera','seremos', 'sereis', 'seran'],
+            'estar':['estare', 'estaras', 'estara', 'estaremos', 'estareis', 'estaran'],
+            'ir':['ire', 'iras', 'ira', 'iremos', 'ireis', 'iran'],
+            'tener':['tendre','tendras','tendra','tendremos','tendreis','tendran'],
+            'dar':['dare','daras','dara','daremos','dareis','daran'],
+            'hacer':['hare','haras','hara','haremos','hareis','haran'],
+            'ver':['vere','veras','vera','veremos','vereis','veran'],
+            'saber':['sabre','sabras','sabra','sabremos','sabreis','sabran'],
+            'decir':['dire','diras','dira','diremos','direis','diran'],
+            'querer':['querre','querras','querra','querremos','querreis','querran'],
+            'salir':['saldre','saldras','saldra','saldremos','saldreis','saldran'],
+            'venir':['vendre','vendras','vendra','vendremos','vendreis','vendran'],
+            'traer':['traere','traeras','traera','traeremos','traereis','traeran'],
+            'poder':['podre','podras','podra','podremos','podreis','podran'],
+            'poner':['pondre','pondras','pondra','pondremos','pondreis','pondran'],
+            'andar':['andare','andaras','andara','andaremos','andareis','andaran'],
+            'caer':['caere','caeras','caera','caeremos','caereis','caeran'],
+            'oir':['oire','oiras','oira','oiremos','oireis','oiran'],
+            'despertar':['despertare','despertaras','despertara','despertaremos','despertareis','despertaran'],
+            'empezar':['empezare','empezaras','empezara','empezaremos','empezareis','empezaran'],
+            'descender':['descendere','descenderas','descendera','descenderemos','descendereis','descenderan'],
+            'encender':['encendere','encenderas','encendera','encenderemos','encendereis','encenderan'],
+            'calentar':['calentare','calentaras','calentara','calentaremos','calentareis','calentaran'],
+            'sentar':['sentare','sentaras','sentara','sentaremos','sentareis','sentaran'],
+            'atender':['atendere','atenderas','atendera','atenderemos','atendereis','atenderan'],
+            'pensar':['pensare','pensaras','pensara','pensaremos','pensareis','pensaran'],
+            'entender':['entendere','entenderas','entendera','entenderemos','entendereis','entenderan'],
+            'defender':['defendere','defenderas','defendera','defenderemos','defendereis','defenderan'],
+            'recomendar':['recomendare','recomendaras','recomendara','recomendaremos','recomendareis','recomendaran'],
+            'perder':['perdere','perderas','perdera','perderemos','perdereis','perderan'],
+            'negar':['negare','negaras','negara','negaremos','negareis','negaran'],
+            'atravesar':['atravesare','atravesaras','atravesara','atravesaremos','atravesareis','atravesaran'],
+            'rogar':['rogare','rogaras','rogara','rogaremos','rogareis','rogaran'],
+            'acostar':['','','','','',''],
+            'soñar':['sonare','sonaras','sonara','sonaremos','sonareis','sonaran'],
+            'encontrar':['encontrare','encontraras','encontrara','encontraremos','encontrareis','encontraran'],
+            'mover':['movere','moveras','movera','moveremos','movereis','moveran'],
+            'probar':['probare','probaras','probara','probaremos','probareis','probaran'],
+            'recordar':['recordare','recordaras','recordara','recordaremos','recordareis','recordaran'],
+            'volver':['volvere','volveras','volvera','volveremos','volvereis','volveran'],
+            'mostrar':['mostrare','mostraras','mostrara','mostraremos','mostrareis','mostraran'],
+            'demostrar':['demostrare','demostraras','demostrara','demostraremos','demostrareis','demostraran'],
+            'almorzar':['almorzare','almorzaras','almorzara','almorzaremos','almorzareis','almorzaran'],
+            'morder':['mordere','morderas','mordera','morderemos','mordereis','morderan'],
+            'costar':['costare','costaras','costara','costaremos','costareis','costaran'],
+            'aprobar':['aprobare','aprobaras','aprobara','aprobaremos','aprobareis','aprobaran'],
+            'vestir':['vestire','vestiras','vestira','vestiremos','vestireis','vestiran'],
+            'servir':['servire','serviras','servira','serviremos','servireis','serviran'],
+            'seguir':['seguire','seguiras','seguira','seguiremos','seguireis','seguiran'],
+            'elegir':['elegire','elegiras','elegira','elegiremos','elegireis','elegiran'],
+            'pedir':['pedire','pediras','pedira','pediremos','pedireis','pediran'],
+            'sentir':['sentire','sentiras','sentira','sentiremos','sentireis','sentiran'],
+            'preferir':['preferire','preferiras','preferira','preferiremos','preferireis','preferiran'],
+            'mentir':['mentire','mentiras','mentira','mentiremos','mentireis','mentiran'],
+            'advertir':['advertire','advertiras','advertira','advertiremos','advertireis','advertiran'],
+            'dormir':['dormire','dormiras','dormira','dormiremos','dormireis','dormiran'],
+            'morir':['morire','moriras','morira','moriremos','morireis','moriran'],
+            'conocer':['conocere','conoceras','conocera','conoceremos','conocereis','conoceran'],
+            'pertenecer':['pertenecere','perteneceras','pertenecera','perteneceremos','pertenecereis','perteneceran'],
+            'parecer':['parecere','pareceras','parecera','pareceremos','parecereis','pareceran'],
+            'ofrecer':['ofrecere','ofreceras','ofrecera','ofreceremos','ofrecereis','ofreceran'],
+            'traducir':['traducire','traduciras','traducira','traduciremos','traducireis','traduciran'],
+            'producir':['producire','produciras','producira','produciremos','producireis','produciran'],
+            'construir':['construire','construiras','construira','construiremos','construireis','construiran'],
+            'destruir':['destruire','destruiras','destruira','destruiremos','destruireis','destruiran']
+        };
+        let shuffled_Verbs=shuffle(verbs);
+        let shuffled_Verbs_Key=0;
+        let h1=document.querySelector('h1');
+        let select=document.querySelector('#select');
+        let input1=document.querySelector('input.input1');
+        let input2=document.querySelector('input.input2');
+        let input3=document.querySelector('input.input3');
+        let input4=document.querySelector('input.input4');
+        let input5=document.querySelector('input.input5');
+        let input6=document.querySelector('input.input6');
+        let p1=document.querySelector('p.p1');
+        let p2=document.querySelector('p.p2');
+        let p3=document.querySelector('p.p3');
+        let p4=document.querySelector('p.p4');
+        let p5=document.querySelector('p.p5');
+        let p6=document.querySelector('p.p6');
+        let button1=document.querySelector('.button1 button');
+        let button2=document.querySelector('.button2 button');
+        let button3=document.querySelector('.button3 button');
+
+        document.addEventListener('keydown', function(event){
+            if(event.code=='Enter'){
+                clickButton3();
+            }else if(event.code=='ShiftRight'){
+                clickButton2();
+            }
+        })
+
+        select.addEventListener('change',changeTense );
+        
+        button1.addEventListener('click', function func(){
+            h1.innerHTML=shuffled_Verbs[shuffled_Verbs_Key];
+            changeTense();
+            input1.focus();
+            this.removeEventListener('click', func)
+        });
+        
+
+        button2.addEventListener('click', clickButton2);
+        
+        button3.addEventListener('click',clickButton3 )
+
+        input1.addEventListener('keydown', function(event){
+            if(event.code=="ArrowDown"){
+                input2.focus();
+            }else if(event.code=="ShiftLeft"){
+                input2.focus();
+            }
+        });
+
+        input2.addEventListener('keydown', function(event){
+            if(event.code=="ArrowDown"){
+                input3.focus();
+            }else if(event.code=="ArrowUp"){
+                input1.focus();
+            }else if(event.code=="ShiftLeft"){
+                input3.focus();
+            }
+        });
+
+        input3.addEventListener('keydown', function(event){
+            if(event.code=="ArrowDown"){
+                input4.focus();
+            }else if(event.code=="ArrowUp"){
+                input2.focus();
+            }else if(event.code=="ShiftLeft"){
+                input4.focus();
+            }
+        });
+
+        input4.addEventListener('keydown', function(event){
+            if(event.code=="ArrowDown"){
+                input5.focus();
+            }else if(event.code=="ArrowUp"){
+                input3.focus();
+            }else if(event.code=="ShiftLeft"){
+                input5.focus();
+            }
+        });
+
+        input5.addEventListener('keydown', function(event){
+            if(event.code=="ArrowDown"){
+                input6.focus();
+            }else if(event.code=="ArrowUp"){
+                input4.focus();
+            }else if(event.code=="ShiftLeft"){
+                input6.focus();
+            }
+        });
+
+        input6.addEventListener('keydown', function(event){
+            if(event.code=="ArrowUp"){
+                input5.focus();
+            }
+        });
+
+        function shuffle(arr){
+          let result=[];
+          while(arr.length>0){
+              let random=getRandomInt(0, arr.length-1);
+              let elem=arr.splice(random,1)[0];
+              result.push(elem);
+          }
+          return result;
+        };
+        function getRandomInt(min,max){
+            return Math.floor(Math.random()*(max-min+1))+min;
+        };
+        function changeTense(){
+            if(select[0].selected){
+                verbs_Answers=Presente_de_indicativo;
+            }else if(select[1].selected){
+                verbs_Answers=Preterito_Simple;
+            }else if(select[2].selected){
+                verbs_Answers=Futuro_imperfecto;
+            }
+        };
+
+        function clickButton3(){
+            shuffled_Verbs_Key++;
+            h1.innerHTML=shuffled_Verbs[shuffled_Verbs_Key];
+            function clean(){
+                input1.value='';
+                input2.value='';
+                input3.value='';
+                input4.value='';
+                input5.value='';
+                input6.value='';
+                p1.innerHTML='';
+                p2.innerHTML='';
+                p3.innerHTML='';
+                p4.innerHTML='';
+                p5.innerHTML='';
+                p6.innerHTML='';
+            }
+            clean();
+            input1.focus();
+            if(shuffled_Verbs_Key==shuffled_Verbs.length){
+                h1.innerHTML='Вы закончили упражнение!';
+                input1.blur();
+                this.removeEventListener('click', clickButton3);
+             }
+        };
+
+        function clickButton2(){
+            function check1(){
+                if(input1.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][0]){
+                p1.innerHTML='';
+            }else if(input1.value!=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][0]){
+                p1.innerHTML=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][0];
+            }
+        };
+        function check2(){
+                if(input2.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][1]){
+                p2.innerHTML='';
+            }else if(input2.value!=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][1]){
+                p2.innerHTML=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][1];
+            }
+        };
+        function check3(){
+                if(input3.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][2]){
+                p3.innerHTML='';
+            }else if(input3.value!=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][2]){
+                p3.innerHTML=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][2];
+            }
+        };
+        function check4(){
+                if(input4.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][3]){
+                p4.innerHTML='';
+            }else if(input4.value!=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][3]){
+                p4.innerHTML=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][3];
+            }
+        };
+        function check5(){
+                if(input5.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][4]){
+                p5.innerHTML='';
+            }else if(input5.value!=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][4]){
+                p5.innerHTML=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][4];
+            }
+        };
+        function check6(){
+                if(input6.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][5]){
+                p6.innerHTML='';
+            }else if(input6.value!=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][5]){
+                p6.innerHTML=verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][5];
+            }
+        };
+        // function lastCheck(){
+        //     if(input1.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][0]&&
+        //     input2.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][1]&&
+        //     input3.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][2]&&
+        //     input4.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][3]&&
+        //     input5.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][4]&&
+        //     input6.value==verbs_Answers[shuffled_Verbs[shuffled_Verbs_Key]][5]){
+        //         p3.innerHTML='Bien hecho!!!' ;
+        //     }
+        // }
+         
+        check1();  
+        check2(); 
+        check3();
+        check4(); 
+        check5();
+        check6();
+        // lastCheck();
+            
+        };
+
+
+
+
+    </script>
+</body>
+</html>
